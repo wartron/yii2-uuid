@@ -1,0 +1,23 @@
+{
+    "name": "wartron/yii2-uuid",
+    "description": "Yii2 UUID Helpers",
+    "keywords": ["yii2", "yii2-uuid", "uuid"],
+    "type": "yii2-extension",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Will Wharton",
+            "email": "w@wartron.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "yiisoft/yii2": "~2.0",
+        "ramsey/uuid": "^2.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "wartron\\yii2uuid\\": ""
+        }
+    }
+}
