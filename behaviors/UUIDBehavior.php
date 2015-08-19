@@ -24,7 +24,8 @@ class UUIDBehavior extends Behavior
 
     public function beforeSave()
     {
-        $this->owner->{$this->column} = $this->createUUID();
+        if(empty($this->owner->{$this->column}))
+            $this->owner->{$this->column} = $this->createUUID();
     }
 
     public function createUUID()
