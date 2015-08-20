@@ -9,7 +9,7 @@ Add the uuid behavior to models
     public function behaviors()
     {
         return [
-            UUIDBehavior::className(),
+            \wartron\yii2uuid\behaviors\UUIDBehavior::className(),
         ];
     }
 
@@ -17,7 +17,7 @@ To use the formater asHex
 
     'components' => [
         'formatter' => [
-            'class' => 'wartron\yii2uuid\components\Formatter'
+            'class' => '\wartron\yii2uuid\components\Formatter'
         ],
     ]
 

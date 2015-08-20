@@ -18,11 +18,11 @@ class UUIDBehavior extends Behavior
     public function events()
     {
         return[
-            ActiveRecord::EVENT_BEFORE_INSERT => 'beforeSave',
+            ActiveRecord::EVENT_BEFORE_INSERT => 'beforeCreate',
         ];
     }
 
-    public function beforeSave()
+    public function beforeCreate()
     {
         if(empty($this->owner->{$this->column}))
             $this->owner->{$this->column} = $this->createUUID();
@@ -31,9 +31,6 @@ class UUIDBehavior extends Behavior
     public function createUUID()
     {
         switch ($this->uuidCreateMethod) {
-            case 'sql':
-                return $this->owner->getDb()->createCommand("SELECT UNHEX(REPLACE(UUID(),'-',''))")->queryScalar();
-                break;
             case 'uuid':
             case 'uuid1':
                 //time based
@@ -45,6 +42,9 @@ class UUIDBehavior extends Behavior
                 return Uuid::uuid4();
             case 'uuid5':
                 return Uuid::uuid5(Uuid::NAMESPACE_DNS, $this->getUUIDNamespace());
+                break;
+            case 'sql':
+                return $this->owner->getDb()->createCommand("SELECT UNHEX(REPLACE(UUID(),'-',''))")->queryScalar();
                 break;
             default:
                 throw new Exception("Invalid method for creating a UUID!", 1);
