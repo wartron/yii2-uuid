@@ -2,16 +2,22 @@
 
 namespace wartron\yii2uuid\helpers;
 
-use Yii;
+use Rhumsaa\Uuid\Uuid as BaseUuid;
 
 
-class Uuid extends \yii\helpers\Inflector
+class Uuid extends BaseUuid
 {
+
+    public function bin($uuid)
+    {
+        return hex2bin(str_replace('-','', $uuid));
+    }
+
     public static function str2uuid($s)
     {
         if(!$s) return null;
         if(strlen($s)==32)
-            return hex2bin(strtoupper($s));
+            return hex2bin($s);
         return $s;
     }
 

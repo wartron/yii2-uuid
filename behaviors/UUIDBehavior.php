@@ -4,7 +4,7 @@ namespace wartron\yii2uuid\behaviors;
 
 use yii\base\Behavior;
 use yii\db\ActiveRecord;
-use Rhumsaa\Uuid\Uuid;
+use wartron\yii2uuid\helpers\Uuid;
 
 class UUIDBehavior extends Behavior
 {
@@ -34,14 +34,14 @@ class UUIDBehavior extends Behavior
             case 'uuid':
             case 'uuid1':
                 //time based
-                return Uuid::uuid1();
+                return Uuid::bin(Uuid::uuid1());
             case 'uuid3':
-                return Uuid::uuid3(Uuid::NAMESPACE_DNS, $this->getUUIDNamespace());
+                return Uuid::bin(Uuid::uuid3(Uuid::NAMESPACE_DNS, $this->getUUIDNamespace()));
             case 'uuid4':
                 //random
-                return Uuid::uuid4();
+                return Uuid::bin(Uuid::uuid4());
             case 'uuid5':
-                return Uuid::uuid5(Uuid::NAMESPACE_DNS, $this->getUUIDNamespace());
+                return Uuid::bin(Uuid::uuid5(Uuid::NAMESPACE_DNS, $this->getUUIDNamespace()));
                 break;
             case 'sql':
                 return $this->owner->getDb()->createCommand("SELECT UNHEX(REPLACE(UUID(),'-',''))")->queryScalar();
@@ -51,6 +51,7 @@ class UUIDBehavior extends Behavior
                 break;
         }
     }
+
 
     public function getUUIDNamespace()
     {
