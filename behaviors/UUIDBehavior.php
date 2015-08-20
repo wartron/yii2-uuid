@@ -34,14 +34,14 @@ class UUIDBehavior extends Behavior
             case 'uuid':
             case 'uuid1':
                 //time based
-                return Uuid::bin(Uuid::uuid1());
+                return Uuid::uuid1();
             case 'uuid3':
-                return Uuid::bin(Uuid::uuid3(Uuid::NAMESPACE_DNS, $this->getUUIDNamespace()));
+                return Uuid::uuid3(\Rhumsaa\Uuid\Uuid::NAMESPACE_DNS, $this->getUUIDNamespace());
             case 'uuid4':
                 //random
-                return Uuid::bin(Uuid::uuid4());
+                return Uuid::uuid4();
             case 'uuid5':
-                return Uuid::bin(Uuid::uuid5(Uuid::NAMESPACE_DNS, $this->getUUIDNamespace()));
+                return Uuid::uuid5(\Rhumsaa\Uuid\Uuid::NAMESPACE_DNS, $this->getUUIDNamespace());
                 break;
             case 'sql':
                 return $this->owner->getDb()->createCommand("SELECT UNHEX(REPLACE(UUID(),'-',''))")->queryScalar();

@@ -5,10 +5,30 @@ namespace wartron\yii2uuid\helpers;
 use Rhumsaa\Uuid\Uuid as BaseUuid;
 
 
-class Uuid extends BaseUuid
+class Uuid
 {
 
-    public function bin($uuid)
+    public static function uuid1($node = null, $clockSeq = null)
+    {
+        return self::bin(BaseUuid::uuid1($node,$clockSeq));
+    }
+
+    public static function uuid3($ns, $name)
+    {
+        return self::bin(BaseUuid::uuid3($ns, $name));
+    }
+
+    public static function uuid4()
+    {
+        return self::bin(BaseUuid::uuid4());
+    }
+
+    public static function uuid5($ns, $name)
+    {
+        return self::bin(BaseUuid::uuid5($ns, $name));
+    }
+
+    public static function bin($uuid)
     {
         return hex2bin(str_replace('-','', $uuid));
     }
