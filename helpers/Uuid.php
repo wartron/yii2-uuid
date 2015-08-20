@@ -15,7 +15,7 @@ class Uuid extends \yii\helpers\Inflector
         return $s;
     }
 
-    public static function uuid2str($s)
+    public static function uuid2str($u)
     {
         if(!$u) return null;
         if(strlen($u)==16)
