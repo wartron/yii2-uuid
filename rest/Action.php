@@ -17,6 +17,6 @@ class Action extends \yii\rest\Action
     public function findModel($id)
     {
         $id = Uuid::str2uuid($id);
-        return parent::findModel($id)
+        return parent::findModel($id);
     }
 }
