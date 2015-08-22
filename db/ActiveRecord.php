@@ -17,6 +17,21 @@ class ActiveRecord extends \yii\db\ActiveRecord
 {
     public $uuidRelations = []
 
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            if(empty($this->id))
+                $this->id = $this->createUUID();
+            return true;
+        }
+        return false;
+    }
+
+    public function createUUID()
+    {
+        return $this->getDb()->createCommand("SELECT UNHEX(REPLACE(UUID(),'-',''))")->queryScalar();
+    }
+
     public function toArray(array $fields = [], array $expand = [], $recursive = true)
     {
         $data = parent::toArray($fields,$expand,$recursive);
