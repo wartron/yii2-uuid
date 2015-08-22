@@ -21,6 +21,6 @@ class UrlRule extends \yii\rest\UrlRule
      * @see patterns
      */
     public $tokens = [
-        '{id}' => '<id:\\d[\\d,]*>',
+        '{id}' => '<id>',
     ];
   }

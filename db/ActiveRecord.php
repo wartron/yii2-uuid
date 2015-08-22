@@ -15,7 +15,7 @@ use Yii;
  */
 class ActiveRecord extends \yii\db\ActiveRecord
 {
-    public $uuidRelations = []
+    public $uuidRelations = [];
 
     public function beforeSave($insert)
     {
