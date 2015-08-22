@@ -1,6 +1,6 @@
 # Yii2-UUID
 
-Helpers for using uuids and primary keys
+Helpers for using uuids as primary keys
 
 ## Installation
 
@@ -21,3 +21,21 @@ To use the formater asHex
         ],
     ]
 
+
+The Helper providers access to ramsey/uuid. This will automaticly convert to the binary from we use!
+
+    use wartron\yii2uuid\helpers\Uuid;
+
+    //generate uuids
+    Uuid::uuid1();
+    Uuid::uuid3();
+    Uuid::uuid4();
+    Uuid::uuid5();
+
+    //converting
+    Uuid::str2uuid($hexString);
+    Uuid::uuid2str($binary);
+
+To use the rest ActiveControllers
+
+    use wartron\yii2uuid\rest\ActiveController;
