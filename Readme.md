@@ -8,6 +8,12 @@ Add the uuid behavior to models.
 
 We could use the SqlExpression to generate the uuid in sql, but we dont get the ID back in last insert id. (We can get around this with triggers if you want a pure SQL method). But generating the ID UUID in php we dont need to worry about getting the id an refreshing the model.
 
+Using our UUID'd ActiveRecord, it will take care of generating the id, and can handle toArray for api calls repersenting the uuid and other uuid fields as in hex.
+
+    use wartron\yii2uuid\db\ActiveRecord;
+
+Using the Behavior for id.
+
     public function behaviors()
     {
         return [
