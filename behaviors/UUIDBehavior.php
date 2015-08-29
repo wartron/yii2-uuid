@@ -26,7 +26,7 @@ class UUIDBehavior extends Behavior
 
     public function createUUID()
     {
-        return Uuid::uuid($this->uuidStrategy)
+        return Uuid::uuid($this->uuidStrategy);
     }
 
 }

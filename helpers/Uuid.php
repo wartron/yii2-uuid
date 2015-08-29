@@ -4,15 +4,21 @@ namespace wartron\yii2uuid\helpers;
 
 use Rhumsaa\Uuid\Uuid as BaseUuid;
 
+use Yii;
 
 class Uuid
 {
-    public static $defaultStrategy = 'uuid1';
+    static public $defaultStrategy = 'uuid1';
+
+    public static function setStrategy($strategy)
+    {
+        self::$defaultStrategy = $strategy;
+    }
 
     public static function uuid($strategy = null)
     {
         if(!$strategy)
-            $strategy = self::defaultStrategy;
+            $strategy = self::$defaultStrategy;
 
         switch ($strategy) {
             case 'uuid1':
@@ -27,7 +33,9 @@ class Uuid
             case 'uuid5':
                 return self::uuid5();
                 break;
-
+            case 'sql':
+                return Yii::$app->getDb()->createCommand("SELECT UNHEX(REPLACE(UUID(),'-',''))")->queryScalar();
+                break;
             default:
                 throw new \Exception("Invalid UUID Strategy '$strategy'", 1);
 
