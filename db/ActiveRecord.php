@@ -3,19 +3,12 @@
 namespace wartron\yii2uuid\db;
 
 use Yii;
-/**
- * This is the base-model class for table "part".
- *
- * @property string $id
- * @property string $widget_id
- * @property integer $type
- * @property string $name
- *
- * @property \app\models\Widget $widget
- */
+use wartron\yii2uuid\helpers\Uuid;
+
 class ActiveRecord extends \yii\db\ActiveRecord
 {
     public $uuidRelations = [];
+    public $uuidStrategy = null;
 
     public function beforeSave($insert)
     {
@@ -29,7 +22,7 @@ class ActiveRecord extends \yii\db\ActiveRecord
 
     public function createUUID()
     {
-        return $this->getDb()->createCommand("SELECT UNHEX(REPLACE(UUID(),'-',''))")->queryScalar();
+        return Uuid::uuid($this->uuidStrategy);
     }
 
     public function toArray(array $fields = [], array $expand = [], $recursive = true)

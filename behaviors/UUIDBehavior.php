@@ -3,22 +3,18 @@
 namespace wartron\yii2uuid\behaviors;
 
 use yii\base\Behavior;
-use yii\db\ActiveRecord;
 use wartron\yii2uuid\helpers\Uuid;
 
 class UUIDBehavior extends Behavior
 {
 
     public $column = 'id';
-
-    public $uuidCreateMethod = 'sql';
-
-    public $uuidNamespace;
+    public $uuidStrategy = null;
 
     public function events()
     {
         return[
-            ActiveRecord::EVENT_BEFORE_INSERT => 'beforeCreate',
+            \yii\db\ActiveRecord::EVENT_BEFORE_INSERT => 'beforeCreate',
         ];
     }
 
@@ -30,37 +26,7 @@ class UUIDBehavior extends Behavior
 
     public function createUUID()
     {
-        switch ($this->uuidCreateMethod) {
-            case 'uuid':
-            case 'uuid1':
-                //time based
-                return Uuid::uuid1();
-            case 'uuid3':
-                return Uuid::uuid3(\Rhumsaa\Uuid\Uuid::NAMESPACE_DNS, $this->getUUIDNamespace());
-            case 'uuid4':
-                //random
-                return Uuid::uuid4();
-            case 'uuid5':
-                return Uuid::uuid5(\Rhumsaa\Uuid\Uuid::NAMESPACE_DNS, $this->getUUIDNamespace());
-                break;
-            case 'sql':
-                return $this->owner->getDb()->createCommand("SELECT UNHEX(REPLACE(UUID(),'-',''))")->queryScalar();
-                break;
-            default:
-                throw new Exception("Invalid method for creating a UUID!", 1);
-                break;
-        }
+        return Uuid::uuid($this->uuidStrategy)
     }
 
-
-    public function getUUIDNamespace()
-    {
-        if(!empty($this->uuidNamespace))
-            return $this->uuidNamespace;
-
-        if(isset(\Yii::$app->params['uuidNamespace']))
-            return \Yii::$app->params['uuidNamespace'];
-
-        throw new Exception("UUID Namespace not specified, set the uuidNamespace in the yii params.", 1);
-    }
 }

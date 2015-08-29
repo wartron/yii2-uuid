@@ -7,29 +7,30 @@ use Rhumsaa\Uuid\Uuid as BaseUuid;
 
 class Uuid
 {
-    public $defaultStrategy = 'uuid1';
+    public static $defaultStrategy = 'uuid1';
 
     public static function uuid($strategy = null)
     {
         if(!$strategy)
-            $strategy = $this->defaultStrategy;
+            $strategy = self::defaultStrategy;
 
         switch ($strategy) {
             case 'uuid1':
-                self::uuid1();
+                return self::uuid1();
                 break;
             case 'uuid3':
-                self::uuid3();
+                return self::uuid3();
                 break;
             case 'uuid4':
-                self::uuid4();
+                return self::uuid4();
                 break;
             case 'uuid5':
-                self::uuid5();
+                return self::uuid5();
                 break;
 
             default:
-                # code...
+                throw new \Exception("Invalid UUID Strategy '$strategy'", 1);
+
                 break;
         }
     }
