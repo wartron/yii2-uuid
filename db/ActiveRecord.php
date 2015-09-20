@@ -7,6 +7,7 @@ use wartron\yii2uuid\helpers\Uuid;
 
 class ActiveRecord extends \yii\db\ActiveRecord
 {
+    //TODO: need to maybe have the UuidValidator or rule do this?
     public $uuidRelations = [];
     public $uuidStrategy = null;
 
